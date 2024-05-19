@@ -21,7 +21,7 @@ export class UserEntity {
   _id?: string;
 
   @IsString()
-  @Column({ default: null })
+  @Column()
   name: string;
 
   @IsEmail()
@@ -29,19 +29,19 @@ export class UserEntity {
   email: string;
 
   @IsString()
-  @Column({ default: null })
+  @Column()
   password: string;
 
   @IsString()
-  @Column({ default: null })
+  @Column()
   type: string;
 
   @IsString()
-  @Column({ default: null })
+  @Column()
   steamID64: string;
 
   @IsString()
-  @Column({ default: null })
+  @Column()
   twitch_channel: string;
 
   @CreateDateColumn()

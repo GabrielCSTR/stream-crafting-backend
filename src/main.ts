@@ -6,9 +6,17 @@ const port = process.env.PORT || 3000;
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  await app.listen(port);
-  app.useGlobalPipes(new ValidationPipe({ stopAtFirstError: true }));
   app.enableCors();
-  Logger.log(`🚀 Server running on http://localhost:${port}`, 'Bootstrap');
+  // Global Pipes
+  app.useGlobalPipes(new ValidationPipe());
+  app.setGlobalPrefix('api/v1');
+
+  await app.listen(port, () => {
+    Logger.log(`🚀 App is running on: ${port as string}`, 'D2 CASTER SERVER');
+  });
 }
-bootstrap();
+
+bootstrap().catch((e: Error) => {
+  Logger.error(`❌ Error starting server, ${e.message} - ${e.stack}`);
+  throw e;
+});

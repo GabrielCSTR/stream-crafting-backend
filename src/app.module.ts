@@ -5,12 +5,13 @@ import { UsersModule } from './users/users.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
 import { ConfigModule } from '@nestjs/config';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({
-      isGlobal: true,
-    }),
+    AuthModule,
+    UsersModule,
+    ConfigModule.forRoot({ envFilePath: '.env' }),
     TypeOrmModule.forRoot({
       type: 'mongodb',
       url: `mongodb+srv://${process.env.DB_USER}:${process.env.DB_USER_PASSWORD}@d2cast.t9s3uvn.mongodb.net/${process.env.DB_DATABASE}?authSource=admin&retryWrites=true&w=majority&appName=${process.env.DB_DATABASE}`,
@@ -18,7 +19,6 @@ import { ConfigModule } from '@nestjs/config';
       synchronize: true,
       logging: true,
     }),
-    UsersModule,
   ],
   controllers: [AppController],
   providers: [AppService],
