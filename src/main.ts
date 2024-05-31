@@ -8,11 +8,11 @@ const port = process.env.PORT || 3000;
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const options = new DocumentBuilder()
-    .setTitle('Streaming Crafting API')
-    .setDescription('STREAMING CRAFTING API currently provides data')
+    .setTitle('Stream Crafting API')
+    .setDescription('STREAM CRAFTING API currently provides data')
     .setVersion('0.0.1')
     .addServer('http://localhost:3000/api/v1/', 'Local environment')
-    .addServer('https://streamcrafting.com/api/v1/', 'Streaming Craft API')
+    .addServer('https://streamcrafting.com/api/v1/', 'Stream Craft API')
     .addServer('https://production.streamcrafting.com/api/v1/', 'Production')
     .addBearerAuth(
       { type: 'http', scheme: 'bearer', bearerFormat: 'JWT' },

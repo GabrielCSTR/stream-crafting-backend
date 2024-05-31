@@ -3,7 +3,7 @@ import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
 
 export class CreateUserDto {
   @ApiProperty({
-    example: 'streamingcrafting',
+    example: 'streamcrafting',
     required: true,
   })
   @IsString()
@@ -11,7 +11,7 @@ export class CreateUserDto {
   name: string;
 
   @ApiProperty({
-    example: 'streamingcrafting@gmail.com',
+    example: 'streamcrafting@gmail.com',
     required: true,
   })
   @IsEmail()
