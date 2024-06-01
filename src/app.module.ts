@@ -8,6 +8,7 @@ import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { TeamsModule } from './teams/teams.module';
 import { IsUniqueConstraint } from './utils/validators/validators';
+import { PlayersModule } from './players/players.module';
 
 @Module({
   imports: [
@@ -22,8 +23,9 @@ import { IsUniqueConstraint } from './utils/validators/validators';
       logging: true,
     }),
     TeamsModule,
+    PlayersModule,
   ],
   controllers: [AppController],
   providers: [AppService, IsUniqueConstraint],
 })
-export class AppModule {}
+export class AppModule { }

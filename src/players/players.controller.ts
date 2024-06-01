@@ -8,9 +8,9 @@ import {
   Delete,
   UseGuards,
 } from '@nestjs/common';
-import { TeamsService } from './teams.service';
-import { CreateTeamDto } from './dto/create-team.dto';
-import { UpdateTeamDto } from './dto/update-team.dto';
+import { PlayersService } from './players.service';
+import { CreatePlayerDto } from './dto/create-player.dto';
+import { UpdatePlayerDto } from './dto/update-player.dto';
 import {
   ApiBearerAuth,
   ApiBody,
@@ -20,12 +20,12 @@ import {
 } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
 
-@ApiTags('Teams')
+@ApiTags('Players')
 @ApiBearerAuth('JWT')
 @UseGuards(AuthGuard('jwt'))
-@Controller('teams')
-export class TeamsController {
-  constructor(private readonly teamsService: TeamsService) {}
+@Controller('players')
+export class PlayersController {
+  constructor(private readonly playersService: PlayersService) {}
 
   @Post()
   @ApiResponse({
@@ -34,68 +34,71 @@ export class TeamsController {
   })
   @ApiResponse({ status: 403, description: 'Forbidden.' })
   @ApiBody({
-    type: CreateTeamDto,
+    type: CreatePlayerDto,
     description: 'Json structure for user object',
   })
-  async create(@Body() createTeamDto: CreateTeamDto) {
-    return await this.teamsService.create(createTeamDto);
+  async create(@Body() createPlayerDto: CreatePlayerDto) {
+    return await this.playersService.create(createPlayerDto);
   }
 
   @Get()
   @ApiResponse({
     status: 201,
-    description: 'The record return all teams.',
+    description: 'The record return all players.',
   })
   @ApiResponse({ status: 403, description: 'Forbidden.' })
   async findAll() {
-    return await this.teamsService.findAll();
+    return await this.playersService.findAll();
   }
 
-  @Get(':name')
+  @Get(':id')
   @ApiResponse({
     status: 201,
-    description: 'The record return specific team.',
+    description: 'The record return specific player.',
   })
   @ApiParam({
-    name: 'name',
+    name: 'id',
     type: String,
     required: true,
-    description: 'Informe name team.',
+    description: 'Informe id player.',
   })
   @ApiResponse({ status: 403, description: 'Forbidden.' })
-  async findOne(@Param('name') name: string) {
-    return await this.teamsService.findOne(name);
+  async findOne(@Param('id') id: string) {
+    return await this.playersService.findOne(id);
   }
 
   @Patch(':id')
   @ApiResponse({
     status: 201,
-    description: 'The record update team.',
+    description: 'The record update player.',
   })
   @ApiParam({
     name: 'id',
     type: String,
     required: true,
-    description: 'Informe id team.',
+    description: 'Informe id player.',
   })
   @ApiResponse({ status: 403, description: 'Forbidden.' })
-  async update(@Param('id') id: string, @Body() updateTeamDto: UpdateTeamDto) {
-    return await this.teamsService.update(id, updateTeamDto);
+  async update(
+    @Param('id') id: string,
+    @Body() updatePlayerDto: UpdatePlayerDto,
+  ) {
+    return await this.playersService.update(id, updatePlayerDto);
   }
 
   @Delete(':id')
   @ApiResponse({
     status: 201,
-    description: 'The record delete specific team.',
+    description: 'The record delete specific player.',
   })
   @ApiParam({
     name: 'id',
     type: String,
     required: true,
-    description: 'Informe id team.',
+    description: 'Informe id player.',
   })
   @ApiResponse({ status: 403, description: 'Forbidden.' })
   async remove(@Param('id') id: string) {
-    return await this.teamsService.remove(id);
+    return await this.playersService.remove(id);
   }
 }

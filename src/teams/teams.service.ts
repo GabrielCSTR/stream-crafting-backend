@@ -11,18 +11,18 @@ export class TeamsService {
   constructor(
     @InjectRepository(TeamEntity)
     private readonly teamRepository: MongoRepository<TeamEntity>,
-  ) {}
+  ) { }
 
   async create(createTeamDto: CreateTeamDto) {
-    return this.teamRepository.save(createTeamDto);
+    return await this.teamRepository.save(createTeamDto);
   }
 
   async findAll(): Promise<TeamEntity[]> {
-    return this.teamRepository.find();
+    return await this.teamRepository.find();
   }
 
   async findOne(name: string): Promise<TeamEntity> {
-    return this.teamRepository.findOne({ where: { name } });
+    return await this.teamRepository.findOne({ where: { name } });
   }
 
   async update(
