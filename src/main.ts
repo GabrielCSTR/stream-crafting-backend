@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 import { Logger, ValidationPipe } from '@nestjs/common';
+import { useContainer } from 'class-validator';
 
 const port = process.env.PORT || 3000;
 
@@ -27,6 +28,8 @@ async function bootstrap() {
   // Global Pipes
   app.useGlobalPipes(new ValidationPipe());
   app.setGlobalPrefix('api/v1');
+
+  useContainer(app.select(AppModule), { fallbackOnErrors: true });
 
   await app.listen(port, () => {
     Logger.log(`🚀 App is running on: ${port as string}`, 'D2 CASTER SERVER');

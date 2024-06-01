@@ -11,15 +11,21 @@ import { UserEntity } from './entities/user.entity';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { AuthGuard } from '@nestjs/passport';
-import { ApiBearerAuth, ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiBody,
+  ApiParam,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 
 @ApiTags('Users')
 @ApiBearerAuth('JWT')
+@UseGuards(AuthGuard('jwt'))
 @Controller('users')
 export class UsersController {
   constructor(private userService: UsersService) {}
 
-  @UseGuards(AuthGuard('jwt'))
   @Post()
   @ApiResponse({
     status: 201,
@@ -34,7 +40,6 @@ export class UsersController {
     return await this.userService.create(userDto);
   }
 
-  @UseGuards(AuthGuard('jwt'))
   @Get()
   @ApiResponse({
     status: 201,
@@ -45,15 +50,16 @@ export class UsersController {
     return await this.userService.findAll();
   }
 
-  @UseGuards(AuthGuard('jwt'))
   @ApiResponse({
     status: 201,
     description: 'The record has delete user.',
   })
   @ApiResponse({ status: 403, description: 'Forbidden.' })
-  @ApiBody({
+  @ApiParam({
+    name: 'email',
     type: String,
-    description: 'required email address',
+    required: true,
+    description: 'Informe id team.',
   })
   @Delete(':email')
   async deleteUser(@Param('email') email: string) {
