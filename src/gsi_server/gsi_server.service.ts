@@ -17,6 +17,7 @@ export class GsiServerService {
 
     const gsiData = JSON.parse(newdata);
     this.GSI.digest(gsiData);
+    console.log('TOKEN', token);
   }
 
   handleGSIDOTA(data) {
