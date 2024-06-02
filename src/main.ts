@@ -32,7 +32,10 @@ async function bootstrap() {
   useContainer(app.select(AppModule), { fallbackOnErrors: true });
 
   await app.listen(port, () => {
-    Logger.log(`🚀 App is running on: ${port as string}`, 'D2 CASTER SERVER');
+    Logger.log(
+      `🚀 App is running on: ${port as string}`,
+      'STREAM CRAFTING SERVER',
+    );
   });
 }
 

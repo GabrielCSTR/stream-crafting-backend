@@ -9,6 +9,7 @@ import { AuthModule } from './auth/auth.module';
 import { TeamsModule } from './teams/teams.module';
 import { IsUniqueConstraint } from './utils/validators/validators';
 import { PlayersModule } from './players/players.module';
+import { GsiServerModule } from './gsi_server/gsi_server.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { PlayersModule } from './players/players.module';
     }),
     TeamsModule,
     PlayersModule,
+    GsiServerModule,
   ],
   controllers: [AppController],
   providers: [AppService, IsUniqueConstraint],
