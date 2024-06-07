@@ -63,7 +63,9 @@ export class UsersController {
   })
   @ApiResponse({ status: 403, description: 'Forbidden.' })
   async findOne(@Param('email') email: string) {
-    return await this.userService.findOneByEmail(email);
+    const user = await this.userService.findOneByEmail(email);
+    delete user.password;
+    return user;
   }
 
   @ApiResponse({

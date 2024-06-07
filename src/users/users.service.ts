@@ -25,7 +25,12 @@ export class UsersService {
 
   async findOneByEmail(email: string): Promise<UserEntity> {
     const user = await this.userRepository.findOne({ where: { email } });
-    delete user.password;
+    if (!user) {
+      throw new BadRequestException({
+        success: false,
+        message: 'User not found',
+      });
+    }
     return user;
   }
 
