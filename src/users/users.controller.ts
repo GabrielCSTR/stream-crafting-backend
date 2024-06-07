@@ -50,6 +50,22 @@ export class UsersController {
     return await this.userService.findAll();
   }
 
+  @Get(':email')
+  @ApiResponse({
+    status: 201,
+    description: 'The record return specific user.',
+  })
+  @ApiParam({
+    name: 'email',
+    type: String,
+    required: true,
+    description: 'Informe email user.',
+  })
+  @ApiResponse({ status: 403, description: 'Forbidden.' })
+  async findOne(@Param('email') email: string) {
+    return await this.userService.findOneByEmail(email);
+  }
+
   @ApiResponse({
     status: 201,
     description: 'The record has delete user.',
